@@ -2,6 +2,11 @@ import random
 import numpy as np
 import os
 import torch as torch
+
+os.chdir(os.path.join(os.path.abspath("."),"src"))
+os.getcwd()
+
+
 from load_data import load_EOD_data
 from evaluator import evaluate
 from model import get_loss, StockMixer
@@ -30,7 +35,7 @@ alpha = 0.1
 scale_factor = 3
 activation = 'GELU'
 
-dataset_path = './dataset/' + market_name
+dataset_path = '../dataset/' + market_name
 if market_name == "SP500":
     data = np.load('./dataset/SP500/SP500.npy')
     data = data[:, 915:, :]
@@ -51,6 +56,7 @@ else:
         gt_data = pickle.load(f)
     with open(os.path.join(dataset_path, "price_data.pkl"), "rb") as f:
         price_data = pickle.load(f)
+
 
 trade_dates = mask_data.shape[1]
 model = StockMixer(
@@ -78,7 +84,6 @@ def validate(start_index, end_index):
         rank_loss = 0.
         for cur_offset in range(start_index - lookback_length - steps + 1, end_index - lookback_length - steps + 1):
             data_batch, mask_batch, price_batch, gt_batch = map(
-
                 lambda x: torch.Tensor(x).to(device),
                 get_batch(cur_offset)
             )
@@ -109,7 +114,6 @@ def get_batch(offset=None):
         np.expand_dims(mask_batch, axis=1),
         np.expand_dims(price_data[:, offset + seq_len - 1], axis=1),
         np.expand_dims(gt_data[:, offset + seq_len + steps - 1], axis=1))
-
 
 for epoch in range(epochs):
     print("epoch{}##########################################################".format(epoch + 1))

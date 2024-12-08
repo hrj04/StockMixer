@@ -69,7 +69,7 @@ class TriU(nn.Module):
     def __init__(self, time_step):
         super(TriU, self).__init__()
         self.time_step = time_step
-        self.triU = nn.ParameterList(
+        self.triU = nn.ModuleList(
             [
                 nn.Linear(i + 1, 1)
                 for i in range(time_step)
