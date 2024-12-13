@@ -1,7 +1,7 @@
 import os
 import sys
 from models.StockMixer import get_loss
-from models.StockMixer2 import StockMixer
+from models.StockMixer2 import StockMixerWithConv
 from einops import rearrange
 from utils import set_seed, evaluate
 import torch
@@ -37,7 +37,7 @@ for seed in seeds:
     market_dim = 20
     scale_factors = [1, 2, 4, 8]
 
-    model = StockMixer(feature_dim, seq_len, hidden_dim, market_dim, stock_num, scale_factors).to(device)
+    model = StockMixerWithConv(feature_dim, seq_len, hidden_dim, market_dim, stock_num, scale_factors).to(device)
     alpha = 0.1
     learning_rate = 0.001
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
