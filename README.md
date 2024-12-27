@@ -17,5 +17,7 @@ If you want to rerun the experiments, execute each Exp*.ipynb file individually.
 
 ## References
 Fan, J., & Shen, Y. (2024) - "StockMixer:A Simple Yet Strong MLP-Based Architecture for Stock Price Forecasting" - AAAI
+
 paper : (https://ojs.aaai.org/index.php/AAAI/article/view/28681)
+
 official code : (https://github.com/SJTU-DMTai/StockMixer)
